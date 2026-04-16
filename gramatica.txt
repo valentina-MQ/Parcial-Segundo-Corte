@@ -1,0 +1,45 @@
+programa        --> sentencia+
+
+sentencia       --> insertar
+                  | buscar
+                  | actualizar
+                  | eliminar
+
+/* CREATE */
+insertar        --> INSERT INTO coleccion VALUES documento
+
+/* READ */
+buscar          --> FIND IN coleccion
+                  | FIND IN coleccion WHERE condicion
+                  | FIND IN coleccion WHERE condicion LIMIT numero
+
+/* UPDATE */
+actualizar      --> UPDATE coleccion SET asignaciones
+                  | UPDATE coleccion SET asignaciones WHERE condicion
+
+/* DELETE */
+eliminar        --> DELETE FROM coleccion
+                  | DELETE FROM coleccion WHERE condicion
+
+documento       --> '{' campos '}'
+campos          --> campo (',' campo)*
+campo           --> clave ':' valor
+
+asignaciones    --> asignacion (',' asignacion)*
+asignacion      --> clave '=' valor
+
+condicion       --> condicion AND condicion
+                  | condicion OR condicion
+                  | NOT condicion
+                  | '(' condicion ')'
+                  | clave operador valor
+
+operador        --> '==' | '!=' | '<' | '>' | '<=' | '>='
+
+valor           --> numero | cadena | booleano | documento | arreglo | NULL
+arreglo         --> '[' (valor (',' valor)*)? ']'
+booleano        --> TRUE | FALSE
+cadena          --> '"' [a-zA-Z0-9_]* '"'
+numero          --> [0-9]+ ('.' [0-9]+)?
+clave           --> [a-zA-Z_][a-zA-Z0-9_]*
+coleccion       --> [a-zA-Z_][a-zA-Z0-9_]*
