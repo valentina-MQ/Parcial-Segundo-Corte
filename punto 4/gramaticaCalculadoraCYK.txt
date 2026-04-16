@@ -1,0 +1,11 @@
+E  → E AddOp T | T
+T  → T MulOp F | F
+F  → ( E ) | num
+
+-- Transformada a CNF para CYK:
+E  → EA T | T
+EA → E AO          (AO = operador suma/resta)
+T  → TM F | F
+TM → T MO          (MO = operador mul/div)
+F  → LP ER | num
+ER → E RP
